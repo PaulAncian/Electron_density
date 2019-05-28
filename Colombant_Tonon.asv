@@ -1,0 +1,38 @@
+clc 
+clear variables
+close all
+
+[k_b,AMU,lambda,h,eV,c,m_e,e_c,eps_0,M_sn,M_atom,area,...
+ power,power_density,at_num,T_e,n_ec] = init(); %initializing all the values we will need
+
+filename0 = "SnIPs.prn"; 
+filename1 = "SnShellRemainingElectrons.prn";
+
+[IPs,RemainingElectrons] = read(filename0,filename1);
+
+T_e1 = T_e(1);
+T_e2 = T_e(2);
+T_e3 = T_e(3);
+
+[n_z1,n_zz1] = solve(IPs,RemainingElectrons,T_e1,n_ec);
+[n_z2,n_zz2] = solve(IPs,RemainingElectrons,T_e2,n_ec);
+[n_z3,n_zz3] = solve(IPs,RemainingElectrons,T_e3,n_ec);
+
+x = 1:50;
+grid on;
+
+y1 = n_z1;
+y2 = n_z2; 
+y3 = n_z3;  
+
+plot(x,y1);
+ylabel('n_e/n_t_o_t');
+xlabel('ion stage distribution');
+title('variation of electron density with ion-stage distribution');
+
+
+plot(x,y2);
+
+
+
+plot(x,y3);
